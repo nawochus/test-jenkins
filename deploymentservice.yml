@@ -5,7 +5,9 @@ metadata:
   labels:
     app: nodeapp
 spec:
-  replicas: 1
+  replicas: 
+  strategy:
+    type: RollingUpdate
   selector:
     matchLabels:
       app: nodeapp
