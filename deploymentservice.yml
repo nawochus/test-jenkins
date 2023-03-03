@@ -1,4 +1,4 @@
-apiVersion: bangsat
+apiVersion: api/v1
 kind: Deployment
 metadata:
   name: app-deployment
