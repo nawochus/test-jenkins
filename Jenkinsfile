@@ -18,7 +18,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build dockerimagename
+          dockerImage = docker.build("nawochus/nodeapp:v${env.BUILD_ID}")
         }
       }
     }
@@ -30,6 +30,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+            dockerImage.push()
             dockerImage.push("latest")
           }
         }
@@ -39,11 +40,12 @@ pipeline {
     stage('Deploying App to Kubernetes') {
       steps {
         script {
-          kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
+          withKubeCredentials(kubectlCredentials: [[credentialsId: 'kubernetes', serverUrl: 'https://172.16.30.200:6443']]) {
+             sh 'kubectl apply -f deploymentservice.yml'
+           }
+          }
         }
       }
     }
-
-  }
 
 }
