@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment
+  name: app-deployment
   labels:
     app: nodeapp
 spec:
@@ -35,4 +35,4 @@ spec:
   - protocol: TCP
     port: 5000
     targetPort: 3000
-    nodePort: 31110
+    nodePort: 31111
