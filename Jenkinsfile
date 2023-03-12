@@ -37,7 +37,7 @@ pipeline {
       }
     }
 
-    stage('Deploying App to Kubernetes') {
+    stage('Deploying App to RKE2') {
       steps {
         script {
           withKubeCredentials(kubectlCredentials: [[credentialsId: 'kubernetes', serverUrl: 'https://172.16.30.200:6443']]) {
